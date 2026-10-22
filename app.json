@@ -1,0 +1,22 @@
+{
+  "expo": {
+    "name": "Tight Ship",
+    "slug": "tight-ship",
+    "scheme": "tightship",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "dark",
+    "backgroundColor": "#0E1013",
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.aarsvold.tightship"
+    },
+    "android": {
+      "package": "com.aarsvold.tightship"
+    },
+    "web": {
+      "bundler": "metro"
+    },
+    "plugins": ["expo-router"]
+  }
+}
