@@ -53,3 +53,10 @@ Supabase project `aedkyctvcplftzwwimif`. Tables: `profiles`, `assets`, `service_
    npm start
    ```
 4. Scan the QR code with Expo Go. For the web version, run `npm run web`.
+
+## Getting updates
+
+Clone this repo with GitHub Desktop. When changes are pushed, open the repo in GitHub Desktop
+and click **Fetch origin**, then **Pull origin**. With `npm start` running, the app on your
+phone reloads by itself. If `package.json` changed, run `npm install` in the terminal once.
+Your `.env` file stays on your computer and is never uploaded.
