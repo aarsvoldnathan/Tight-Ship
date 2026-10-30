@@ -63,6 +63,17 @@ To switch it on once: GitHub repo > Settings > Pages > Source: **GitHub Actions*
 In Supabase > Authentication > URL Configuration, set **Site URL** to the address above and add
 it to **Redirect URLs** so sign-up confirmation emails return to the site.
 
+## Phone apps (same setup as Service Ceo)
+
+- **Android:** every push to `main` builds `TightShip-android-N.apk` and publishes it at
+  https://github.com/aarsvoldnathan/Tight-Ship/releases/latest. Installed apps show an
+  **Update available** banner when a newer build exists.
+- **iPhone:** every push to `main` checks that the iPhone app compiles. A commit whose first line
+  contains `[upload]` (or a manual run with "Upload to TestFlight" ticked) also signs the app and
+  sends it to TestFlight. This needs four GitHub secrets in this repo (Settings > Secrets and
+  variables > Actions): `APPLE_TEAM_ID`, `APP_STORE_CONNECT_KEY_ID`,
+  `APP_STORE_CONNECT_ISSUER_ID`, `APP_STORE_CONNECT_KEY`. Bundle ID: `com.aarsvold.tightship`.
+
 ## Getting updates
 
 Clone this repo with GitHub Desktop. When changes are pushed, open the repo in GitHub Desktop

@@ -12,6 +12,7 @@ import {
 import { useAuth } from '../src/auth';
 import { DueRow } from '../src/components/DueRow';
 import { Tile } from '../src/components/Tile';
+import { UpdateBanner } from '../src/components/UpdateBanner';
 import { Button, SectionTitle } from '../src/components/ui';
 import { getDueItems, getStaleAssets } from '../src/maintenance';
 import { useStore } from '../src/store';
@@ -56,6 +57,8 @@ export default function Hub() {
         />
       }
     >
+      <UpdateBanner />
+
       <View style={styles.tiles}>
         <Tile label="Overdue" value={overdue.length} color={colors.danger} />
         <Tile label="Due soon" value={dueSoon.length} color={colors.warn} />
