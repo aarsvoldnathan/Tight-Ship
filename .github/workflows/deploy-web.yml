@@ -1,0 +1,58 @@
+name: Deploy web app
+
+# Builds the website and publishes it with GitHub Pages every time main is updated.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install packages
+        run: npm install --legacy-peer-deps
+
+      - name: Add web packages (versions matched to this Expo SDK)
+        run: npx expo install react-dom react-native-web @expo/metro-runtime -- --legacy-peer-deps
+
+      - name: Build website
+        run: npx expo export --platform web
+        env:
+          # The URL and publishable key are meant to be public. Never put a secret key here.
+          EXPO_PUBLIC_SUPABASE_URL: https://aedkyctvcplftzwwimif.supabase.co
+          EXPO_PUBLIC_SUPABASE_KEY: sb_publishable_DJ7jbWx0GRSGsk7ES5GxFA_zF_D-Nbj
+
+      - name: Prepare for GitHub Pages
+        run: |
+          touch dist/.nojekyll
+          cp dist/index.html dist/404.html
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

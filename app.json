@@ -15,8 +15,14 @@
       "package": "com.aarsvold.tightship"
     },
     "web": {
-      "bundler": "metro"
+      "bundler": "metro",
+      "output": "single"
     },
-    "plugins": ["expo-router"]
+    "plugins": [
+      "expo-router"
+    ],
+    "experiments": {
+      "baseUrl": "/Tight-Ship"
+    }
   }
 }

@@ -54,6 +54,15 @@ Supabase project `aedkyctvcplftzwwimif`. Tables: `profiles`, `assets`, `service_
    ```
 4. Scan the QR code with Expo Go. For the web version, run `npm run web`.
 
+## Website
+
+The web version is published automatically by GitHub Actions to GitHub Pages every time
+`main` is updated: https://aarsvoldnathan.github.io/Tight-Ship/
+
+To switch it on once: GitHub repo > Settings > Pages > Source: **GitHub Actions**.
+In Supabase > Authentication > URL Configuration, set **Site URL** to the address above and add
+it to **Redirect URLs** so sign-up confirmation emails return to the site.
+
 ## Getting updates
 
 Clone this repo with GitHub Desktop. When changes are pushed, open the repo in GitHub Desktop

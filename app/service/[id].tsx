@@ -1,7 +1,6 @@
 import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import {
-  Alert,
   KeyboardAvoidingView,
   Platform,
   ScrollView,
@@ -9,6 +8,7 @@ import {
   Text,
   View,
 } from 'react-native';
+import { confirmAction, notify } from '../../src/dialog';
 import { DueRow } from '../../src/components/DueRow';
 import { Button, Field, SectionTitle } from '../../src/components/ui';
 import { serviceTaskDue } from '../../src/maintenance';
@@ -83,22 +83,15 @@ export default function AssetDetail() {
 
   const markDone = async (task: ServiceTask) => {
     const err = await completeServiceTask(task, asset, {});
-    if (err) Alert.alert('Could not log service', err);
+    if (err) notify('Could not log service', err);
   };
 
   const confirmDelete = () =>
-    Alert.alert('Delete equipment?', 'This also deletes its services and history.', [
-      { text: 'Cancel', style: 'cancel' },
-      {
-        text: 'Delete',
-        style: 'destructive',
-        onPress: async () => {
-          const err = await deleteAsset(asset.id);
-          if (err) Alert.alert('Could not delete', err);
-          else router.back();
-        },
-      },
-    ]);
+    confirmAction('Delete equipment?', 'This also deletes its services and history.', 'Delete', async () => {
+      const err = await deleteAsset(asset.id);
+      if (err) notify('Could not delete', err);
+      else router.back();
+    });
 
   return (
     <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
@@ -137,7 +130,7 @@ export default function AssetDetail() {
                       kind="danger"
                       onPress={async () => {
                         const err = await deleteServiceTask(t.id);
-                        if (err) Alert.alert('Could not delete', err);
+                        if (err) notify('Could not delete', err);
                       }}
                     />
                   </View>

@@ -20,6 +20,8 @@ function Routes() {
   }
 
   return (
+    <View style={{ flex: 1, backgroundColor: colors.bg }}>
+      <View style={{ flex: 1, width: '100%', maxWidth: 720, alignSelf: 'center' }}>
     <Stack
       screenOptions={{
         headerStyle: { backgroundColor: colors.bg },
@@ -39,6 +41,8 @@ function Routes() {
         <Stack.Screen name="login" options={{ headerShown: false }} />
       </Stack.Protected>
     </Stack>
+      </View>
+    </View>
   );
 }
 

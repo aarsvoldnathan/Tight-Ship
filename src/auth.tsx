@@ -1,4 +1,5 @@
 import type { Session } from '@supabase/supabase-js';
+import { Platform } from 'react-native';
 import React, { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import { supabase } from './supabase';
 
@@ -36,7 +37,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         return error ? error.message : null;
       },
       signUp: async (email, password) => {
-        const { data, error } = await supabase.auth.signUp({ email, password });
+        const { data, error } = await supabase.auth.signUp({
+          email,
+          password,
+          options:
+            Platform.OS === 'web'
+              ? { emailRedirectTo: String((globalThis as { location?: { href?: string } }).location?.href ?? '').split(/[?#]/)[0] }
+              : undefined,
+        });
         if (error) return error.message;
         if (!data.session) return 'Check your email to confirm your account, then sign in.';
         return null;
